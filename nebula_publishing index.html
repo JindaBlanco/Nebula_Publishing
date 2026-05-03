@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nebula Publishing — Coloring Books for the Soul</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0612;--cosmos:#0d0a1a;--nebula:#1a0f2e;
+  --violet:#7c3aed;--rose:#e879a0;--gold:#f0c060;--teal:#2dd4bf;
+  --star:#fff8f0;--dim:#8b7aa8;
+  --ff-display:'Cormorant Garamond',serif;
+  --ff-body:'Jost',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--cosmos);color:var(--star);
+  font-family:var(--ff-body);font-weight:300;
+  overflow-x:hidden;
+}
+
+/* ── STAR FIELD ── */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.stars::before,.stars::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%,rgba(255,248,240,0.7) 0%,transparent 100%),
+    radial-gradient(1px 1px at 25% 45%,rgba(255,248,240,0.5) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 20%,rgba(255,248,240,0.8) 0%,transparent 100%),
+    radial-gradient(1px 1px at 55% 70%,rgba(255,248,240,0.6) 0%,transparent 100%),
+    radial-gradient(1px 1px at 70% 35%,rgba(255,248,240,0.7) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 80% 55%,rgba(240,192,96,0.6) 0%,transparent 100%),
+    radial-gradient(1px 1px at 90% 10%,rgba(255,248,240,0.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 80%,rgba(255,248,240,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 60% 90%,rgba(124,58,237,0.6) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 35% 60%,rgba(255,248,240,0.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 85% 75%,rgba(255,248,240,0.7) 0%,transparent 100%),
+    radial-gradient(1px 1px at 5% 50%,rgba(255,248,240,0.4) 0%,transparent 100%);
+}
+.stars::after{
+  transform:rotate(45deg) scale(2);
+  background-image:
+    radial-gradient(1px 1px at 20% 30%,rgba(255,248,240,0.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 45% 65%,rgba(255,248,240,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 75% 20%,rgba(232,121,160,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 65% 85%,rgba(255,248,240,0.3) 0%,transparent 100%);
+  animation:twinkle 8s ease-in-out infinite alternate;
+}
+@keyframes twinkle{0%{opacity:.6}100%{opacity:1}}
+
+/* ── NEBULA GLOW ── */
+.nebula-bg{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 30%,rgba(124,58,237,0.12) 0%,transparent 70%),
+    radial-gradient(ellipse 50% 35% at 80% 70%,rgba(232,121,160,0.08) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 50% at 60% 20%,rgba(45,212,191,0.06) 0%,transparent 70%);
+}
+
+/* ── LAYOUT ── */
+.container{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 32px}
+
+/* ── HEADER / NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 40px;display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,rgba(10,6,18,0.9),transparent);
+  backdrop-filter:blur(8px);
+}
+.nav-logo{
+  font-family:var(--ff-display);font-size:22px;font-weight:300;
+  letter-spacing:3px;color:var(--star);text-decoration:none;
+}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--star)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:120px 32px 80px;
+  position:relative;
+}
+.hero-eyebrow{
+  font-size:11px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:24px;opacity:0;
+  animation:fadeUp .8s ease .2s forwards;
+}
+.hero-title{
+  font-family:var(--ff-display);font-size:clamp(52px,8vw,96px);
+  font-weight:300;line-height:1.05;letter-spacing:-1px;
+  opacity:0;animation:fadeUp .8s ease .4s forwards;
+}
+.hero-title em{font-style:italic;color:var(--rose)}
+.hero-sub{
+  font-size:clamp(15px,2vw,18px);font-weight:200;
+  color:var(--dim);max-width:520px;line-height:1.8;
+  margin:28px auto 48px;opacity:0;
+  animation:fadeUp .8s ease .6s forwards;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:14px 36px;border:1px solid rgba(240,192,96,0.4);
+  border-radius:40px;color:var(--gold);text-decoration:none;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  background:rgba(240,192,96,0.06);
+  transition:all .3s;opacity:0;
+  animation:fadeUp .8s ease .8s forwards;
+}
+.hero-cta:hover{background:rgba(240,192,96,0.15);border-color:var(--gold);transform:translateY(-2px)}
+.hero-cta::after{content:'↓'}
+
+/* Floating mandala decoration */
+.hero-mandala{
+  position:absolute;right:-80px;top:50%;transform:translateY(-50%);
+  width:400px;height:400px;opacity:.07;pointer-events:none;
+  animation:rotateSlow 60s linear infinite;
+}
+@keyframes rotateSlow{from{transform:translateY(-50%) rotate(0deg)}to{transform:translateY(-50%) rotate(360deg)}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── DIVIDER ── */
+.divider{
+  text-align:center;padding:20px 0;
+  font-size:20px;opacity:.2;letter-spacing:8px;
+}
+
+/* ── ABOUT ── */
+.about{padding:100px 0}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--violet);margin-bottom:16px}
+.about-title{font-family:var(--ff-display);font-size:clamp(36px,4vw,52px);font-weight:300;line-height:1.2;margin-bottom:24px}
+.about-title em{font-style:italic;color:var(--teal)}
+.about-body{color:var(--dim);line-height:1.9;font-size:15px}
+.about-body p+p{margin-top:16px}
+.about-visual{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+}
+.about-card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
+  border-radius:16px;padding:24px;text-align:center;
+  transition:all .3s;cursor:default;
+}
+.about-card:hover{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.3);transform:translateY(-4px)}
+.about-card-icon{font-size:32px;margin-bottom:12px}
+.about-card-title{font-family:var(--ff-display);font-size:16px;font-weight:400;margin-bottom:6px}
+.about-card-sub{font-size:12px;color:var(--dim);line-height:1.6}
+
+/* ── PRODUCTS ── */
+.products{padding:100px 0}
+.section-header{text-align:center;margin-bottom:64px}
+.section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-bottom:12px}
+.section-title{font-family:var(--ff-display);font-size:clamp(36px,4vw,52px);font-weight:300}
+.section-title em{font-style:italic;color:var(--gold)}
+
+.books-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.book-card{
+  position:relative;border-radius:20px;overflow:hidden;
+  border:1px solid rgba(255,255,255,0.06);
+  background:linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01));
+  transition:all .4s;cursor:pointer;
+}
+.book-card:hover{transform:translateY(-8px);border-color:rgba(255,255,255,0.15);box-shadow:0 24px 60px rgba(0,0,0,0.4)}
+.book-cover{
+  height:280px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.book-cover svg{width:160px;height:160px;opacity:.85}
+.book-cover::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 60%,rgba(10,6,18,0.8));
+}
+.book-info{padding:20px 24px 24px}
+.book-series{font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px}
+.book-title{font-family:var(--ff-display);font-size:22px;font-weight:400;margin-bottom:8px}
+.book-desc{font-size:12px;color:var(--dim);line-height:1.7;margin-bottom:16px}
+.book-price{
+  display:inline-block;font-size:11px;letter-spacing:1px;
+  padding:6px 16px;border-radius:20px;border:1px solid;
+}
+/* Card themes */
+.book-card.blooms .book-cover{background:radial-gradient(ellipse at 50% 30%,rgba(232,121,160,0.2),rgba(10,6,18,0.8))}
+.book-card.blooms .book-series{color:var(--rose)}
+.book-card.blooms .book-price{color:var(--rose);border-color:rgba(232,121,160,0.3);background:rgba(232,121,160,0.06)}
+.book-card.cosmos .book-cover{background:radial-gradient(ellipse at 50% 30%,rgba(124,58,237,0.25),rgba(10,6,18,0.8))}
+.book-card.cosmos .book-series{color:var(--violet)}
+.book-card.cosmos .book-price{color:var(--violet);border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.06)}
+.book-card.waters .book-cover{background:radial-gradient(ellipse at 50% 30%,rgba(45,212,191,0.2),rgba(10,6,18,0.8))}
+.book-card.waters .book-series{color:var(--teal)}
+.book-card.waters .book-price{color:var(--teal);border-color:rgba(45,212,191,0.3);background:rgba(45,212,191,0.06)}
+
+/* ── MISSION ── */
+.mission{
+  padding:100px 0;text-align:center;
+  background:linear-gradient(to bottom,transparent,rgba(124,58,237,0.06),transparent);
+}
+.mission-quote{
+  font-family:var(--ff-display);font-size:clamp(24px,3.5vw,42px);
+  font-weight:300;font-style:italic;line-height:1.5;
+  max-width:800px;margin:0 auto 32px;
+}
+.mission-quote span{color:var(--gold)}
+.mission-body{color:var(--dim);font-size:15px;line-height:1.9;max-width:600px;margin:0 auto 48px}
+
+/* ── CONTACT ── */
+.contact{padding:100px 0}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-title{font-family:var(--ff-display);font-size:clamp(32px,3.5vw,48px);font-weight:300;margin-bottom:20px}
+.contact-title em{font-style:italic;color:var(--rose)}
+.contact-body{color:var(--dim);line-height:1.9;font-size:15px;margin-bottom:32px}
+.contact-detail{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:14px;color:var(--dim)}
+.contact-detail span:first-child{font-size:18px}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.form-field input,.form-field textarea{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);border-radius:10px;
+  padding:14px 18px;color:var(--star);font-family:var(--ff-body);
+  font-size:14px;font-weight:300;outline:none;resize:none;
+  transition:border-color .2s;
+}
+.form-field input:focus,.form-field textarea:focus{border-color:rgba(240,192,96,0.4)}
+.form-field input::placeholder,.form-field textarea::placeholder{color:var(--dim)}
+.form-submit{
+  padding:14px 36px;border-radius:40px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--violet),var(--rose));
+  color:white;font-family:var(--ff-body);font-size:12px;
+  letter-spacing:2px;text-transform:uppercase;font-weight:400;
+  transition:all .3s;align-self:flex-start;
+}
+.form-submit:hover{opacity:.85;transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+footer{
+  padding:40px;border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:1;
+}
+.footer-logo{font-family:var(--ff-display);font-size:18px;font-weight:300;letter-spacing:2px}
+.footer-logo span{color:var(--gold)}
+.footer-copy{font-size:12px;color:var(--dim)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .books-grid{grid-template-columns:1fr}
+  .about-visual{grid-template-columns:1fr 1fr}
+  .hero-mandala{display:none}
+  footer{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="nebula-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Nebula <span>Publishing</span></a>
+  <ul class="nav-links">
+    <li><a href="#books">Collection</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Nebula Publishing · Est. 2024</div>
+  <h1 class="hero-title">
+    Colour Beyond<br><em>the Ordinary</em>
+  </h1>
+  <p class="hero-sub">
+    Intricate coloring books that transport you to worlds of botanical wonder, cosmic mystery, and elemental beauty. Each page is a meditation.
+  </p>
+  <a href="#books" class="hero-cta">Explore the Collection</a>
+
+  <!-- Decorative mandala -->
+  <svg class="hero-mandala" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="200" cy="200" r="190" stroke="white" stroke-width="0.5"/>
+    <circle cx="200" cy="200" r="150" stroke="white" stroke-width="0.5"/>
+    <circle cx="200" cy="200" r="110" stroke="white" stroke-width="0.5"/>
+    <circle cx="200" cy="200" r="70" stroke="white" stroke-width="0.5"/>
+    <circle cx="200" cy="200" r="30" stroke="white" stroke-width="0.5"/>
+    <g stroke="white" stroke-width="0.5">
+      <line x1="200" y1="10" x2="200" y2="390"/>
+      <line x1="10" y1="200" x2="390" y2="200"/>
+      <line x1="55" y1="55" x2="345" y2="345"/>
+      <line x1="345" y1="55" x2="55" y2="345"/>
+      <line x1="10" y1="130" x2="390" y2="270"/>
+      <line x1="130" y1="10" x2="270" y2="390"/>
+      <line x1="390" y1="130" x2="10" y2="270"/>
+      <line x1="270" y1="10" x2="130" y2="390"/>
+    </g>
+    <g fill="white">
+      <circle cx="200" cy="10" r="3"/>
+      <circle cx="200" cy="390" r="3"/>
+      <circle cx="10" cy="200" r="3"/>
+      <circle cx="390" cy="200" r="3"/>
+      <circle cx="55" cy="55" r="3"/>
+      <circle cx="345" cy="55" r="3"/>
+      <circle cx="55" cy="345" r="3"/>
+      <circle cx="345" cy="345" r="3"/>
+    </g>
+  </svg>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="about-label">Our Story</div>
+        <h2 class="about-title">Art that <em>breathes</em> with you</h2>
+        <div class="about-body">
+          <p>Nebula Publishing creates premium digital coloring books designed for adults who seek calm, creativity, and connection. Each illustration is meticulously hand-crafted with intricate detail — a sanctuary from the noise of everyday life.</p>
+          <p>Based in Zambia and publishing globally, we believe that art is not a luxury — it is a necessity. Our collections draw from nature, cosmos, and culture to create experiences that are both meditative and magnificent.</p>
+          <p>Every Nebula book is available as an instant digital download, printable at home on any paper you love.</p>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-card">
+          <div class="about-card-icon">🌸</div>
+          <div class="about-card-title">Botanical</div>
+          <div class="about-card-sub">Flowers, vines & sacred geometry from the natural world</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🌙</div>
+          <div class="about-card-title">Cosmic</div>
+          <div class="about-card-sub">Stars, moons & celestial patterns from the universe</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🌊</div>
+          <div class="about-card-title">Elemental</div>
+          <div class="about-card-sub">Water, earth & wind expressed through flowing form</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">✦</div>
+          <div class="about-card-title">Cultural</div>
+          <div class="about-card-sub">Tribal patterns & African geometry reimagined</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- PRODUCTS -->
+<section class="products" id="books">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">The Collection</div>
+      <h2 class="section-title">Digital <em>Coloring Books</em></h2>
+    </div>
+    <div class="books-grid">
+      <div class="book-card blooms">
+        <div class="book-cover">
+          <svg viewBox="0 0 160 160" fill="none">
+            <circle cx="80" cy="80" r="60" stroke="#e879a0" stroke-width="0.8" opacity="0.5"/>
+            <circle cx="80" cy="80" r="40" stroke="#e879a0" stroke-width="0.8" opacity="0.7"/>
+            <circle cx="80" cy="80" r="20" stroke="#e879a0" stroke-width="1" opacity="0.9"/>
+            <g stroke="#e879a0" stroke-width="0.8" opacity="0.6">
+              <ellipse cx="80" cy="40" rx="8" ry="18"/>
+              <ellipse cx="80" cy="120" rx="8" ry="18"/>
+              <ellipse cx="40" cy="80" rx="18" ry="8"/>
+              <ellipse cx="120" cy="80" rx="18" ry="8"/>
+              <ellipse cx="51" cy="51" rx="8" ry="18" transform="rotate(-45 51 51)"/>
+              <ellipse cx="109" cy="109" rx="8" ry="18" transform="rotate(-45 109 109)"/>
+              <ellipse cx="109" cy="51" rx="8" ry="18" transform="rotate(45 109 51)"/>
+              <ellipse cx="51" cy="109" rx="8" ry="18" transform="rotate(45 51 109)"/>
+            </g>
+            <circle cx="80" cy="80" r="8" fill="#e879a0" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="book-info">
+          <div class="book-series">Blooms Series · Vol. 1</div>
+          <div class="book-title">Sacred Blooms</div>
+          <div class="book-desc">40 pages of intricate floral mandalas inspired by the world's most beautiful flowers.</div>
+          <div class="book-price">Digital Download · $9.99</div>
+        </div>
+      </div>
+
+      <div class="book-card cosmos">
+        <div class="book-cover">
+          <svg viewBox="0 0 160 160" fill="none">
+            <circle cx="80" cy="80" r="60" stroke="#7c3aed" stroke-width="0.8" opacity="0.4"/>
+            <path d="M80 20 Q95 50 80 80 Q65 50 80 20Z" stroke="#7c3aed" stroke-width="0.8" fill="none" opacity="0.7"/>
+            <path d="M80 140 Q95 110 80 80 Q65 110 80 140Z" stroke="#7c3aed" stroke-width="0.8" fill="none" opacity="0.7"/>
+            <path d="M20 80 Q50 65 80 80 Q50 95 20 80Z" stroke="#7c3aed" stroke-width="0.8" fill="none" opacity="0.7"/>
+            <path d="M140 80 Q110 65 80 80 Q110 95 140 80Z" stroke="#7c3aed" stroke-width="0.8" fill="none" opacity="0.7"/>
+            <circle cx="80" cy="80" r="15" stroke="#7c3aed" stroke-width="1" opacity="0.9"/>
+            <circle cx="80" cy="80" r="5" fill="#7c3aed" opacity="0.6"/>
+            <circle cx="80" cy="30" r="3" fill="#f0c060" opacity="0.8"/>
+            <circle cx="110" cy="50" r="2" fill="#f0c060" opacity="0.6"/>
+            <circle cx="50" cy="110" r="2" fill="#f0c060" opacity="0.6"/>
+            <circle cx="120" cy="100" r="1.5" fill="white" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="book-info">
+          <div class="book-series">Cosmos Series · Vol. 1</div>
+          <div class="book-title">Celestial Dreams</div>
+          <div class="book-desc">Journey through 40 pages of moon phases, star maps, and cosmic geometry.</div>
+          <div class="book-price">Digital Download · $9.99</div>
+        </div>
+      </div>
+
+      <div class="book-card waters">
+        <div class="book-cover">
+          <svg viewBox="0 0 160 160" fill="none">
+            <circle cx="80" cy="80" r="60" stroke="#2dd4bf" stroke-width="0.8" opacity="0.4"/>
+            <path d="M20 70 Q40 55 60 70 Q80 85 100 70 Q120 55 140 70" stroke="#2dd4bf" stroke-width="1" fill="none" opacity="0.8"/>
+            <path d="M20 80 Q40 65 60 80 Q80 95 100 80 Q120 65 140 80" stroke="#2dd4bf" stroke-width="1" fill="none" opacity="0.9"/>
+            <path d="M20 90 Q40 75 60 90 Q80 105 100 90 Q120 75 140 90" stroke="#2dd4bf" stroke-width="1" fill="none" opacity="0.8"/>
+            <path d="M20 60 Q40 45 60 60 Q80 75 100 60 Q120 45 140 60" stroke="#2dd4bf" stroke-width="0.7" fill="none" opacity="0.5"/>
+            <path d="M20 100 Q40 85 60 100 Q80 115 100 100 Q120 85 140 100" stroke="#2dd4bf" stroke-width="0.7" fill="none" opacity="0.5"/>
+            <circle cx="80" cy="80" r="18" stroke="#2dd4bf" stroke-width="1" opacity="0.7"/>
+            <circle cx="80" cy="80" r="6" fill="#2dd4bf" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="book-info">
+          <div class="book-series">Waters Series · Vol. 1</div>
+          <div class="book-title">Fluid Sanctuary</div>
+          <div class="book-desc">40 pages of flowing water patterns, koi ponds, and ocean-inspired mandalas.</div>
+          <div class="book-price">Digital Download · $9.99</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- MISSION -->
+<section class="mission">
+  <div class="container">
+    <p class="mission-quote">"Every line you colour is a <span>conversation with yourself</span> — a quiet act of creation in a loud world."</p>
+    <p class="mission-body">At Nebula Publishing, we believe that the act of colouring is one of the most ancient and powerful forms of meditation. Our books are designed not just to be beautiful, but to be transformative.</p>
+    <a href="#contact" class="hero-cta" style="display:inline-flex">Get in Touch</a>
+  </div>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="about-label">Get in Touch</div>
+        <h2 class="contact-title">Let's create <em>together</em></h2>
+        <p class="contact-body">For wholesale enquiries, custom coloring book commissions, or just to say hello — we'd love to hear from you.</p>
+        <div class="contact-detail"><span>✉</span><span>hello@nebulapublishing.com</span></div>
+        <div class="contact-detail"><span>🌍</span><span>Lusaka, Zambia · Shipping Worldwide</span></div>
+        <div class="contact-detail"><span>⚡</span><span>Instant digital delivery on all orders</span></div>
+      </div>
+      <div>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-field"><input type="text" placeholder="Your name" required></div>
+          <div class="form-field"><input type="email" placeholder="Email address" required></div>
+          <div class="form-field"><input type="text" placeholder="Subject"></div>
+          <div class="form-field"><textarea rows="5" placeholder="Your message..."></textarea></div>
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Nebula <span>Publishing</span></div>
+  <div class="footer-copy">© 2026 Nebula Publishing · Lusaka, Zambia · All rights reserved</div>
+</footer>
+
+<script>
+function handleSubmit(e){
+  e.preventDefault()
+  const btn = e.target.querySelector('.form-submit')
+  btn.textContent = 'Message Sent ✓'
+  btn.style.background = 'linear-gradient(135deg,#2dd4bf,#0891b2)'
+  setTimeout(()=>{btn.textContent='Send Message';btn.style.background=''},3000)
+}
+// Smooth reveal on scroll
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})
+},{threshold:0.1})
+document.querySelectorAll('.about-card,.book-card').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='all 0.6s ease';
+  observer.observe(el)
+})
+</script>
+</body>
+</html>
